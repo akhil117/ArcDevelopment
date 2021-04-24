@@ -35,11 +35,14 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar,
         marginBottom: "3rem",
         [theme.breakpoints.down('md')]: {
-            marginBottom: "2rem",
+            marginBottom: "1.5rem",
         },
         [theme.breakpoints.down('xs')]: {
             marginBottom: "1rem",
         },
+    },
+    appBar: {
+        zIndex: theme.zIndex.modal + 1
     },
     logoContainer: {
         padding: 0,
@@ -79,14 +82,19 @@ const useStyles = makeStyles(theme => ({
     },
     menuItem: {
         ...theme.typography.tab,
-        opacity: 0.7,
         "&:hover": {
-            opacity: 1
+            opacity: 0.85
         }
     },
     selectedItem: {
         ...theme.typography.tab,
         opacity: 1
+    },
+    menuSelected: {
+        opacity: 1
+    },
+    menuDeselect: {
+        opacity: 0.7
     },
     drawerIconContainer: {
         marginLeft: "auto",
@@ -108,8 +116,7 @@ const useStyles = makeStyles(theme => ({
     },
     drawerItemTextEstimate: {
         ...theme.typography.estimate,
-    }
-
+    },
 }));
 
 /** 
@@ -152,63 +159,6 @@ const Header = () => {
         setAnchorEl(null);
     };
 
-    useEffect(() => {
-        switch (window.location.pathname) {
-            case "/":
-                if (value !== 0) {
-                    setValue(0)
-                }
-                break;
-            case "/services":
-                if (value !== 1) {
-                    setValue(1);
-                    setSelectedMenuIndex(0);
-                }
-                break;
-            case "/customsoftware":
-                if (value !== 1) {
-                    setValue(1);
-                    setSelectedMenuIndex(1);
-                }
-                break;
-            case "/mobileapps":
-                if (value !== 1) {
-                    setValue(1);
-                    setSelectedMenuIndex(2);
-                }
-                break;
-            case "/websites":
-                if (value !== 1) {
-                    setValue(1);
-                    setSelectedMenuIndex(3);
-                }
-                break;
-            case "/revolution":
-                if (value !== 2) {
-                    setValue(2);
-                }
-                break;
-            case "/about":
-                if (value !== 3) {
-                    setValue(3);
-                }
-                break;
-            case "/contact":
-                if (value !== 4) {
-                    setValue(4);
-                }
-                break;
-            case "/estimate":
-                if (value !== 5) {
-                    setValue(5);
-                }
-                break;
-            default:
-                setValue(0)
-                break;
-        }
-    }, [value])
-
     const menuServiceProperties = [
         { name: "Services", url: "/services" },
         { name: "Custom Software Development", url: "/customsoftware" },
@@ -216,7 +166,7 @@ const Header = () => {
         { name: "Website Development", url: "/websites" }
     ]
 
-    const listProperties = [
+    const tabProperties = [
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "The Revolutionary", url: "/revolution" },
@@ -224,13 +174,32 @@ const Header = () => {
         { name: "Contact Us", url: "/contact" },
     ]
 
+    useEffect(() => {
+        const pathName = window.location.pathname;
+        const tabIndex = tabProperties.findIndex(option => option.url === pathName);
+        const menuIndex = menuServiceProperties.findIndex(option => option.url === pathName);
+        if (pathName === "/estimate") {
+            setValue(5);
+        }
+        else {
+            if (tabIndex !== -1) {
+                setValue(tabIndex);
+            }
+            else {
+                setValue(1);
+            }
+        }
+        setSelectedMenuIndex(menuIndex)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const drawer = (
         <React.Fragment>
             <SwipeableDrawer classes={{ paper: classes.menu }} disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}>
+            <div className={classes.toolbar}></div>
                 <List disablePadding>
                     {
-                        listProperties.map((option, index) => (
+                        tabProperties.map((option, index) => (
                             <ListItem key={option.name} selected={value === index}
                                 onClick={(e) => { handleChange(e, index); setOpenDrawer(false) }} divider button component={Link} to={option.url}>
                                 <ListItemText classes={{ root: value !== index ? classes.menuItem : classes.selectedItem }} disableTypography>{option.name}</ListItemText>
@@ -251,18 +220,18 @@ const Header = () => {
     const tabs = (
         <React.Fragment>
             <Tabs indicatorColor="primary" value={value} onChange={handleChange} className={classes.tabsContainer}>
-                <Tab className={classes.tab} component={Link} to="/" label="Home" />
-                <Tab
-                    aria-owns={anchorEl ? "simple-menu" : undefined}
-                    aria-haspopup={anchorEl ? "true" : undefined}
-                    className={classes.tab}
-                    onMouseOver={(e) => handleClick(e)}
-                    component={Link} to="/services"
-                    label="Services"
-                />
-                <Tab className={classes.tab} component={Link} to="/revolution" label="The Revolutionary" />
-                <Tab className={classes.tab} component={Link} to="/about" label="About Us" />
-                <Tab className={classes.tab} component={Link} to="/contact" label="Contact Us" />
+                {
+                    tabProperties.map((option) => {
+                        if (option.url === "/services") {
+                            return (<Tab key={option.name} aria-owns={anchorEl ? "simple-menu" : undefined} aria-haspopup={anchorEl ? "true" : undefined} className={classes.tab}
+                                onMouseOver={(e) => handleClick(e)}
+                                component={Link} to={option.url}
+                                label={option.name}
+                            />)
+                        }
+                        return <Tab key={option.name} className={classes.tab} component={Link} to={option.url} label={option.name} />
+                    })
+                }
             </Tabs>
             <Button variant="contained" color="secondary" component={Link} to="/estimate" className={classes.button}>Free Estimate</Button>
             <Menu
@@ -276,11 +245,13 @@ const Header = () => {
                     onMouseLeave: handleClose,
                 }}
                 elevation={0}
+                style={{zIndex:1302}}
             >
                 {
-                    menuServiceProperties.map((option, index) => (
-                        <MenuItem key={option.name} selected={index === selectedMenuIndex && value === 1} classes={{ root: classes.menuItem }} component={Link} to={option.url} onClick={(event) => { handleClose(); setValue(1); handleMenuItemClick(event, index) }}>{option.name}</MenuItem>
-                    ))
+                    menuServiceProperties.map((option, index) => {
+                        const selectedClass = index === selectedMenuIndex && value === 1 ? classes.menuSelected : classes.menuDeselect
+                        return <MenuItem key={option.name} selected={index === selectedMenuIndex && value === 1} className={selectedClass} classes={{ root: classes.menuItem }} component={Link} to={option.url} onClick={(event) => { handleClose(); setValue(1); handleMenuItemClick(event, index) }}>{option.name}</MenuItem>
+                    })
                 }
             </Menu>
         </React.Fragment>
@@ -291,7 +262,7 @@ const Header = () => {
     return (
         <React.Fragment>
             <ElevationScroll>
-                <AppBar position="fixed">
+                <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar disableGutters>
                         <Button disableRipple className={classes.logoContainer} component={Link} to="/" onClick={() => setValue(0)} >
                             <svg
@@ -343,8 +314,6 @@ const Header = () => {
                                 />
                             </svg>
                         </Button>
-                        {console.log(value)}
-
                         {matches ? drawer : tabs}
                     </Toolbar>
                 </AppBar>
