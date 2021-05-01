@@ -73,7 +73,10 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "40px",
         marginRight: "25px",
         ...theme.typography.estimate,
-        height: "2.8rem"
+        height: "2.8rem",
+        "&:hover":{
+            backgroundColor:theme.palette.secondary.light
+        },
     },
     menu: {
         backgroundColor: theme.palette.common.blue,
@@ -161,7 +164,7 @@ const Header = (props) => {
     const menuServiceProperties = [
         { name: "Services", url: "/services" },
         { name: "Custom Software Development", url: "/customsoftware" },
-        { name: "Mobile App Development", url: "/mobileapps" },
+        { name: "IOS/Android Development", url: "/mobileapps" },
         { name: "Website Development", url: "/websites" }
     ]
 
@@ -330,4 +333,5 @@ export default Header;
  * ToolbarTip for horizontal display
  * SetMultiple functions in onclick= {()=>{function1();function2()}}
  * Fluid Design allows to renders based on screen size
+ * localrunning command adb reverse tcp:3000 tcp:3000
  */

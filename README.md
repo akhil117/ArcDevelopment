@@ -68,3 +68,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Animations
+
+https://aescripts.com/bodymovin/
+
+### Running website in your local
+
+- *STEP -1*
+
+adb reverse tcp:3000 tcp:3000
+
+- *STEP -2*
+
+In your mobile Settings -> Additional -> DeveloperOptions -> Enable Usb Debugging

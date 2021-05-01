@@ -14,7 +14,9 @@ import linkedin from '../../assets/linkedin.svg';
 const useStyles = makeStyles(theme => ({
     footer: {
         backgroundColor: theme.palette.common.blue,
-        width: "100%",
+        margin:0,
+        padding:0,
+        minWidth: "100%",
         zIndex: "1302",
         position: "relative"
     },
@@ -87,7 +89,7 @@ const Footer = (props) => {
                                 Custom Software Development
                     </Grid>
                             <Grid item component={Link} to="/mobileapps" className={classes.link} onClick={() => { setValue(1); setSelectedMenuIndex(2) }}>
-                                Mobile App Development
+                                IOS/Android Development
                     </Grid>
                             <Grid item component={Link} to="/websites" className={classes.link} onClick={() => { setValue(1); setSelectedMenuIndex(3) }}>
                                 Website Development
