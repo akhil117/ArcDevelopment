@@ -181,7 +181,7 @@ const Header = (props) => {
         const tabIndex = tabProperties.findIndex(option => option.url === pathName);
         const menuIndex = menuServiceProperties.findIndex(option => option.url === pathName);
         if (pathName === "/estimate") {
-            setValue(5);
+            setValue(false);
         }
         else {
             if (tabIndex !== -1) {
@@ -235,7 +235,7 @@ const Header = (props) => {
                     })
                 }
             </Tabs>
-            <Button variant="contained" color="secondary" component={Link} to="/estimate" className={classes.button}>Free Estimate</Button>
+            <Button variant="contained" onClick={()=>setValue(false)} color="secondary" component={Link} to="/estimate" className={classes.button}>Free Estimate</Button>
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}

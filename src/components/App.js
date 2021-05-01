@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Header value={value} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />
         <Switch>
-          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/" render={(props)=><LandingPage {...props} value={value} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/services" component={()=> <div>services</div>} />
           <Route exact path="/customsoftware" component={()=> <div>customsoftware</div>} />
           <Route exact path="/mobileapps" component={()=> <div>mobileapps</div>} />
