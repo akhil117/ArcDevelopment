@@ -94,9 +94,11 @@ const useStyles = makeStyles(theme => ({
         opacity: 1
     },
     menuSelected: {
+        color: "#fff",
         opacity: 1
     },
     menuDeselect: {
+        color: "#fff",
         opacity: 0.7
     },
     drawerIconContainer: {
