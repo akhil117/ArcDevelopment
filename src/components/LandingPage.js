@@ -103,7 +103,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     serviceContainer: {
-        marginTop: "7em",
+        marginTop: "10em",
         [theme.breakpoints.down('xs')]: {
             padding: "2em"
         }
