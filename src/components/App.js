@@ -11,6 +11,7 @@ import Services from '../components/Services';
 import CustomSoftware from '../components/CustomSoftware';
 import MobileApps from '../components/MobileApps';
 import Websites from '../components/Websites';
+import Revolution from '../components/Revolution';
 function App() {
   const [value, setValue] = useState(0);
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
@@ -23,8 +24,8 @@ function App() {
           <Route exact path="/services" render={(props)=><Services {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/customsoftware" render={(props)=> <CustomSoftware {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
           <Route exact path="/mobileapps" render={(props)=> <MobileApps {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
-          <Route exact path="/websites" component={(props)=> <Websites  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
-          <Route exact path="/revolution" component={()=> <div>revolution</div>} />
+          <Route exact path="/websites" render={(props)=> <Websites  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
+          <Route exact path="/revolution" render={(props)=> <Revolution  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/about" component={()=> <div>about</div>} />
           <Route exact path="/contact" component={()=> <div>contact</div>} />
           <Route exact path="/estimate" component={()=> <div>estimate</div>} />
