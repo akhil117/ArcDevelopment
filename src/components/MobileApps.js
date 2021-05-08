@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
     arrowContainer: {
         marginTop: "0.5em"
-    },
+    }
 }))
 
 const MobileApps = (props) => {
@@ -79,7 +79,7 @@ const MobileApps = (props) => {
                 <Grid item container direction="column" className={classes.heading} style={{ textAlign: matchesMD ? "center" : "inherit" }}>
                     <Grid item>
                         <Typography variant="h2" gutterBottom>
-                            iOS/Android App Development
+                            IOS/Android App Development
                         </Typography>
 
                         <Typography variant="body1" paragraph>
