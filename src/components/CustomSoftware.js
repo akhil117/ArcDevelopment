@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     mainContainer: {
-        marginTop: "2em",
+        marginTop: "5em",
         [theme.breakpoints.down('sm')]: {
             marginTop: "1em"
         }

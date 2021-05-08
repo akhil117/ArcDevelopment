@@ -8,7 +8,8 @@ import Theme from './ui/Theme';
 
 import LandingPage from '../components/LandingPage';
 import Services from '../components/Services';
-import CustomSoftware from '../components/CustomSoftware'
+import CustomSoftware from '../components/CustomSoftware';
+import MobileApps from '../components/MobileApps';
 function App() {
   const [value, setValue] = useState(0);
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
@@ -19,8 +20,8 @@ function App() {
         <Switch>
           <Route exact path="/" render={(props)=><LandingPage {...props} value={value} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/services" render={(props)=><Services {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
-          <Route exact path="/customsoftware" render={(props)=> <CustomSoftware {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}   />} />
-          <Route exact path="/mobileapps" component={()=> <div>mobileapps</div>} />
+          <Route exact path="/customsoftware" render={(props)=> <CustomSoftware {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
+          <Route exact path="/mobileapps" render={(props)=> <MobileApps {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
           <Route exact path="/websites" component={()=> <div>websites</div>} />
           <Route exact path="/revolution" component={()=> <div>revolution</div>} />
           <Route exact path="/about" component={()=> <div>about</div>} />
