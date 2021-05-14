@@ -12,6 +12,7 @@ import CustomSoftware from '../components/CustomSoftware';
 import MobileApps from '../components/MobileApps';
 import Websites from '../components/Websites';
 import Revolution from '../components/Revolution';
+import AboutUs from '../components/AboutUs'
 function App() {
   const [value, setValue] = useState(0);
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
@@ -26,7 +27,7 @@ function App() {
           <Route exact path="/mobileapps" render={(props)=> <MobileApps {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
           <Route exact path="/websites" render={(props)=> <Websites  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/revolution" render={(props)=> <Revolution  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
-          <Route exact path="/about" component={()=> <div>about</div>} />
+          <Route exact path="/about" render={(props)=> <AboutUs {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
           <Route exact path="/contact" component={()=> <div>contact</div>} />
           <Route exact path="/estimate" component={()=> <div>estimate</div>} />
         </Switch>

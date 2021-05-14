@@ -68,10 +68,15 @@ export default createMuiTheme({
             fontSize: "1.15rem",
             fontWeight: 300
         },
-        body1:{
-          fontSize:"1.25rem" ,
-          color: `${arcGrey}`,
-          fontWeight: 300
+        body1: {
+            fontSize: "1.25rem",
+            color: `${arcGrey}`,
+            fontWeight: 300
+        },
+        caption: {
+            fontSize: "1rem",
+            color: `${arcGrey}`,
+            fontWeight: 300
         }
     }
 });
