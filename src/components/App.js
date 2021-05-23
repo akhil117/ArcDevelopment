@@ -12,7 +12,9 @@ import CustomSoftware from '../components/CustomSoftware';
 import MobileApps from '../components/MobileApps';
 import Websites from '../components/Websites';
 import Revolution from '../components/Revolution';
-import AboutUs from '../components/AboutUs'
+import AboutUs from '../components/AboutUs';
+import Contact from '../components/Contact';
+
 function App() {
   const [value, setValue] = useState(0);
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
@@ -28,7 +30,7 @@ function App() {
           <Route exact path="/websites" render={(props)=> <Websites  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/revolution" render={(props)=> <Revolution  {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex}  />} />
           <Route exact path="/about" render={(props)=> <AboutUs {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
-          <Route exact path="/contact" component={()=> <div>contact</div>} />
+          <Route exact path="/contact" render={(props)=> <Contact {...props} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />} />
           <Route exact path="/estimate" component={()=> <div>estimate</div>} />
         </Switch>
         <Footer value={value} setValue={setValue} selectedMenuIndex={selectedMenuIndex} setSelectedMenuIndex={setSelectedMenuIndex} />
