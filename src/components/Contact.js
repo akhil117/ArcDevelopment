@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-
+import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 
@@ -105,6 +107,34 @@ const Contact = (props) => {
     const [message, setMessage] = useState('');
     const { setValue } = props;
 
+    const [loading, setLoading] = useState(false);
+    const [alert, setAlert] = useState({ open: false, message: "", backgroundColor: "" });
+
+    const onConfirm = async () => {
+       var body = {
+            name: name,
+            email: email,
+            phone: phone,
+            message: message
+        }
+        try {
+            setLoading(true);
+            const res = await axios.post('https://arcdevelpment-email-publisher.herokuapp.com/sendEmail',body);
+            console.log("Response", res);
+            setLoading(false);
+            setOpen(false);
+            setName("");
+            setEmail("");
+            setPhone("");
+            setMessage("");
+            setAlert({ open: true, message: "Message sent successfully", backgroundColor: "#4BB543" })
+
+        } catch (error) {
+            console.log("Error", error);
+            setLoading(false);
+            setAlert({ open: true, message: "Something went wrong, please try again!", backgroundColor: "#FF3232" })
+        }
+    }
 
     const onChange = (event) => {
         let valid;
@@ -141,6 +171,8 @@ const Contact = (props) => {
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
+    const icon = loading ? <CircularProgress size={30} /> :
+        <React.Fragment>Send Message <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} /></React.Fragment>
 
     return (
         <Grid item container direction="row">
@@ -237,7 +269,7 @@ const Contact = (props) => {
                         </Grid>
 
                         <Grid item>
-                            <Grid item container direction="column" style={{ maxWidth: matchesSM?"100%":"20em" }}>
+                            <Grid item container direction="column" style={{ maxWidth: matchesSM ? "100%" : "20em" }}>
                                 <Grid item style={{ marginBottom: "0.5em" }}>
                                     <TextField fullWidth id="name" label="Name" value={name} onChange={event => setName(event.target.value)} />
                                 </Grid>
@@ -249,7 +281,7 @@ const Contact = (props) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item style={{ maxWidth: matchesSM?"100%":"20em"  }}>
+                        <Grid item style={{ maxWidth: matchesSM ? "100%" : "20em" }}>
                             <TextField fullWidth InputProps={{ disableUnderline: true }}
                                 className={classes.message} multiline rows={10} value={message} id="message" onChange={event => setMessage(event.target.value)} />
                         </Grid>
@@ -260,15 +292,22 @@ const Contact = (props) => {
                             <Button style={{ fontWeight: 300 }} color="primary" onClick={() => setOpen(false)}>Cancel</Button>
                         </Grid>
                         <Grid item>
-                            <Button onClick={() => setOpen(true)} disabled={!(name.length !== 0 && message.length !== 0 && emailHelper.length === 0 && phoneHelper.length === 0)} variant="contained" className={classes.sendButton}>
-                                Send Message
-                        <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+                            <Button onClick={onConfirm} disabled={!(name.length !== 0 && message.length !== 0 && emailHelper.length === 0 && phoneHelper.length === 0)} variant="contained" className={classes.sendButton}>
+                                {icon}
                             </Button>
                         </Grid>
                     </Grid>
                 </DialogContent>
             </Dialog>
 
+
+            <Snackbar
+                autoHideDuration={4000}
+                open={alert.open}
+                message={alert.message}
+                ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                onClose={() => setAlert({ ...alert, open: false })}></Snackbar>
             <Grid item container direction={matchesMD ? "column" : "row"} justify={matchesMD ? "center" : undefined} className={classes.background} lg={8} xl={9} alignItems="center">
                 <Grid item style={{ marginLeft: matchesMD ? "0em" : "3em" }}>
                     <Grid container direction="column" style={{ textAlign: matchesMD ? "center" : "inherit" }}>
