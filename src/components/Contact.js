@@ -111,7 +111,7 @@ const Contact = (props) => {
     const [alert, setAlert] = useState({ open: false, message: "", backgroundColor: "" });
 
     const onConfirm = async () => {
-       var body = {
+        var body = {
             name: name,
             email: email,
             phone: phone,
@@ -119,7 +119,7 @@ const Contact = (props) => {
         }
         try {
             setLoading(true);
-            const res = await axios.post('https://arcdevelpment-email-publisher.herokuapp.com/sendEmail',body);
+            const res = await axios.post('https://arcdevelpment-email-publisher.herokuapp.com/sendEmail', body);
             console.log("Response", res);
             setLoading(false);
             setOpen(false);
